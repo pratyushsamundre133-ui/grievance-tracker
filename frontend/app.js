@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://grievance-tracker-qq44.onrender.com/api";
 const ENDPOINT = `${API_BASE}/grievances`;
 
 let cases = [];

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grievance Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+
+  <nav class="navbar">
+    <div class="brand">
+      <span class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+      </span>
+      <span class="brand-name">Grievance Register</span>
+    </div>
+    <button id="newCaseBtnNav" class="btn-gradient btn-sm" type="button">+ File a Case</button>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-text">
+      <span class="eyebrow-pill"><span class="pill-accent">Case Register</span> &middot; Vol. I</span>
+      <h1>Every complaint, logged and tracked to <span class="text-gradient">resolution</span>.</h1>
+      <p class="hero-sub">A single place to file, follow, and close out grievances — no case slips through the cracks.</p>
+      <div class="hero-actions">
+        <button id="newCaseBtn" class="btn-gradient" type="button">+ File a Case</button>
+        <button id="watchDemoBtn" class="btn-outline" type="button">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m10 9 5 3-5 3z"/></svg>
+          See how it works
+        </button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1568667256549-094345857637?auto=format&fit=crop&w=800&q=80" alt="Filed paper documents in a records office" loading="lazy">
+      <div class="hero-quote">
+        <span class="quote-mark">&ldquo;</span>
+        <p>Justice delayed is justice denied.</p>
+        <span class="quote-author">&mdash; William E. Gladstone</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats-bar">
+    <div class="stat-card">
+      <span class="stat-icon stat-icon-purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M2 13h20"/></svg>
+      </span>
+      <span class="stat-number" id="statTotal">0</span>
+      <span class="stat-label">Total cases</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon stat-icon-orange">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      </span>
+      <span class="stat-number" id="statPending">0</span>
+      <span class="stat-label">Pending</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon stat-icon-blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg>
+      </span>
+      <span class="stat-number" id="statProgress">0</span>
+      <span class="stat-label">In progress</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon stat-icon-green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+      </span>
+      <span class="stat-number" id="statResolved">0</span>
+      <span class="stat-label">Resolved</span>
+    </div>
+  </section>
+
+  <main class="register">
+
+    <section class="toolbar" aria-label="Filter cases">
+      <div class="tabs" id="statusTabs" role="tablist">
+        <button class="tab is-active" data-status="all" role="tab" aria-selected="true">All</button>
+        <button class="tab" data-status="Pending" role="tab" aria-selected="false">Pending</button>
+        <button class="tab" data-status="In Progress" role="tab" aria-selected="false">In Progress</button>
+        <button class="tab" data-status="Resolved" role="tab" aria-selected="false">Resolved</button>
+      </div>
+      <div class="toolbar-right">
+        <select id="categoryFilter" class="filter-select" aria-label="Filter by category">
+          <option value="all">All categories</option>
+          <option value="Hostel">Hostel</option>
+          <option value="Mess">Mess</option>
+          <option value="Academic">Academic</option>
+          <option value="Infrastructure">Infrastructure</option>
+          <option value="Other">Other</option>
+        </select>
+        <select id="sortSelect" class="filter-select" aria-label="Sort cases">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="priority">Priority: High to Low</option>
+        </select>
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="searchInput" placeholder="Search cases...">
+        </div>
+      </div>
+    </section>
+
+    <p class="count-line"><span id="caseCount">0</span> cases on file</p>
+
+    <section id="caseList" class="case-list" aria-live="polite"></section>
+
+    <div id="emptyState" class="empty-state" hidden>
+      <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <h2>No cases found</h2>
+      <p>File a new case to get started.</p>
+      <button id="emptyFileBtn" class="btn-gradient" type="button">+ File a New Case</button>
+    </div>
+
+    <div id="errorState" class="error-state" hidden>
+      <h2>The register could not be reached.</h2>
+      <p id="errorDetail">Check that the server is running at <code>http://localhost:5000/api</code>, then try again.</p>
+      <button id="retryBtn" class="btn-outline" type="button">Retry</button>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <span>Made with <span class="heart">&hearts;</span> for a better tomorrow</span>
+  </footer>
+
+  <div id="overlay" class="overlay" hidden></div>
+  <aside id="caseDrawer" class="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="eyebrow-pill">New Filing</span>
+      <h2>File a Case</h2>
+      <button id="closeDrawerBtn" class="close-btn" type="button" aria-label="Close">&times;</button>
+    </div>
+    <form id="caseForm" class="case-form">
+      <label>
+        <span>Title</span>
+        <input type="text" id="fTitle" name="title" required maxlength="120" placeholder="e.g. Water leakage in Block C">
+      </label>
+      <label>
+        <span>Description</span>
+        <textarea id="fDescription" name="description" required rows="5" placeholder="Describe what happened, where, and when."></textarea>
+      </label>
+      <div class="form-row">
+        <label>
+          <span>Category</span>
+          <select id="fCategory" name="category">
+            <option value="Hostel">Hostel</option>
+            <option value="Mess">Mess</option>
+            <option value="Academic">Academic</option>
+            <option value="Infrastructure">Infrastructure</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label>
+          <span>Priority</span>
+          <select id="fPriority" name="priority">
+            <option value="Low">Low</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="High">High</option>
+          </select>
+        </label>
+      </div>
+      <label>
+        <span>Filed by</span>
+        <input type="text" id="fName" name="name" placeholder="Your name (optional)">
+      </label>
+      <div class="form-actions">
+        <button type="button" id="cancelBtn" class="btn-outline">Cancel</button>
+        <button type="submit" class="btn-gradient">Submit Case</button>
+      </div>
+      <p id="formError" class="form-error" hidden></p>
+    </form>
+  </aside>
+
+  <template id="cardTemplate">
+    <article class="case-card">
+      <div class="case-card-top">
+        <span class="case-number"></span>
+        <span class="status-stamp"></span>
+      </div>
+      <h3 class="case-title"></h3>
+      <p class="case-desc"></p>
+      <div class="case-meta">
+        <span class="meta-item category"></span>
+        <span class="meta-dot">&middot;</span>
+        <span class="meta-item priority"></span>
+        <span class="meta-dot">&middot;</span>
+        <span class="meta-item date"></span>
+      </div>
+      <div class="case-actions">
+        <select class="status-select" aria-label="Update status">
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Resolved">Resolved</option>
+        </select>
+        <button class="delete-btn" type="button" title="Withdraw case">Withdraw</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
